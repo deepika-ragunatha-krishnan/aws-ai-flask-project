@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoS & NER Analysis</title>
+</head>
+<body>
+    <h2>Enter Text for PoS & Named Entity Recognition</h2>
+    <form method="post">
+        <textarea name="text" rows="4" cols="50"></textarea><br>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if entities %}
+        <h3>Named Entity Recognition (NER)</h3>
+        <table border="1">
+            <tr><th>Text</th><th>Type</th><th>Score</th></tr>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity["Text"] }}</td>
+                    <td>{{ entity["Type"] }}</td>
+                    <td>{{ "%.2f"|format(entity["Score"]) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if syntax_tokens %}
+        <h3>Part of Speech (PoS) Analysis</h3>
+        <table border="1">
+            <tr><th>Word</th><th>PoS</th></tr>
+            {% for token in syntax_tokens %}
+                <tr>
+                    <td>{{ token["Text"] }}</td>
+                    <td>{{ token["PartOfSpeech"]["Tag"] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
